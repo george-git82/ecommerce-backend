@@ -1,4 +1,4 @@
-package com.abhishek.ecommercebackend.products;
+package com.abhishek.productslist.products;
 
 import java.util.ArrayList;
 import java.util.List;

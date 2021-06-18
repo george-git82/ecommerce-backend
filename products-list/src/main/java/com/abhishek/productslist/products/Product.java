@@ -1,4 +1,4 @@
-package com.abhishek.ecommercebackend.products;
+package com.abhishek.productslist.products;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

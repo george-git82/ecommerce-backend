@@ -1,7 +1,7 @@
-package com.abhishek.ecommercebackend;
+package com.abhishek.productslist;
 
-import com.abhishek.ecommercebackend.products.Product;
-import com.abhishek.ecommercebackend.products.ProductService;
+import com.abhishek.productslist.products.Product;
+import com.abhishek.productslist.products.ProductService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
