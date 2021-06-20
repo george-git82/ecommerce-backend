@@ -13,6 +13,7 @@ public class Product {
     private float price;
     private String image_title;
     private String image;
+    private int qty;
 
     public Product() {
     }
@@ -84,11 +85,19 @@ public class Product {
         this.image = image;
     }
 
+    public int getQty() {
+        return this.qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
+
     @Override
     public String toString() {
         return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", category='" + getCategory() + "'"
                 + ", description='" + getDescription() + "'" + ", price='" + getPrice() + "'" + ", image_title='"
-                + getImage_title() + "'" + ", image='" + getImage() + "'" + "}";
+                + getImage_title() + "'" + ", image='" + getImage() + "'" + ", qty='" + getQty() + "'" + "}";
     }
 
 }
