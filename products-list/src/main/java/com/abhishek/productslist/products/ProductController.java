@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 @CrossOrigin(origins = "http://localhost:8080")
@@ -43,9 +44,13 @@ public class ProductController {
         // throw e;
         // }
 
-        Inventory[] inventory = restTemplate
-                .postForEntity("http://localhost:8082/api/inventory", allIds, Inventory[].class).getBody();
-        allProducts = addProductsQty(allProducts, inventory);
+        try {
+            Inventory[] inventory = restTemplate
+                    .postForEntity("http://localhost:8082/api/inventory", allIds, Inventory[].class).getBody();
+            allProducts = addProductsQty(allProducts, inventory);
+        } catch (ResourceAccessException e) {
+            throw new RuntimeException("/api/inventory : refused connection.");
+        }
 
         return allProducts;
     }
