@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
+import lombok.extern.slf4j.Slf4j;
+
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("api")
+@Slf4j
 public class ProductController {
 
     @Autowired
@@ -28,6 +31,8 @@ public class ProductController {
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public List<Product> getAllProducts() {
+        log.info("Inside getAllProducts method of ProductController");
+
         List<Product> allProducts = productService.getAllProduct();
 
         List<String> allIds = allProducts.stream().map(product -> {
@@ -56,6 +61,8 @@ public class ProductController {
     }
 
     private List<Product> addProductsQty(List<Product> allProducts, Inventory[] inventory) {
+        log.info("Inside addProductsQty method of ProductController");
+
         // Convert inventory to map
         Map<String, Integer> mInventory = new HashMap<>();
         for (Inventory e : inventory) {
