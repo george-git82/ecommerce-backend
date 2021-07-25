@@ -1,0 +1,12 @@
+spring:
+    application:
+        name: PRODUCTS-LIST
+    # JPA configs
+    jpa:
+        hibernate:
+            ddl-auto: update
+server:
+    port: 8081
+    # no trace in rest error response
+    error:
+        include-stacktrace: never
