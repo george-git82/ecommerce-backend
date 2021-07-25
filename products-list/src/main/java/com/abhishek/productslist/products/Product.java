@@ -20,5 +20,5 @@ public class Product {
     private float price;
     private String image_title;
     private String image;
-    private int qty;
+    private String qty;
 }

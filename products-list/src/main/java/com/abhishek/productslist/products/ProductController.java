@@ -51,10 +51,12 @@ public class ProductController {
 
         try {
             Inventory[] inventory = restTemplate
-                    .postForEntity("http://localhost:8082/api/inventory", allIds, Inventory[].class).getBody();
+                    .postForEntity("http://PRODUCTS-INVENTORY/api/inventory", allIds, Inventory[].class).getBody();
             allProducts = addProductsQty(allProducts, inventory);
         } catch (ResourceAccessException e) {
-            throw new RuntimeException("/api/inventory : refused connection.");
+            log.error("/api/inventory : refused connection.");
+            // throw new RuntimeException("/api/inventory : refused connection.");
+            allProducts = addProductsQty(allProducts, null);
         }
 
         return allProducts;
@@ -63,16 +65,24 @@ public class ProductController {
     private List<Product> addProductsQty(List<Product> allProducts, Inventory[] inventory) {
         log.info("Inside addProductsQty method of ProductController");
 
-        // Convert inventory to map
-        Map<String, Integer> mInventory = new HashMap<>();
-        for (Inventory e : inventory) {
-            mInventory.put(e.getId(), Integer.parseInt(e.getQty()));
-        }
+        if (inventory == null) {
+            // set qty on products
+            allProducts.forEach(ele -> {
+                ele.setQty("ERROR: Unable to fetch inventory data");
+            });
+        } else {
 
-        // set qty on products
-        allProducts.forEach(ele -> {
-            ele.setQty(mInventory.get(ele.getId()));
-        });
+            // Convert inventory to map
+            Map<String, Integer> mInventory = new HashMap<>();
+            for (Inventory e : inventory) {
+                mInventory.put(e.getId(), Integer.parseInt(e.getQty()));
+            }
+
+            // set qty on products
+            allProducts.forEach(ele -> {
+                ele.setQty("" + mInventory.get(ele.getId()));
+            });
+        }
 
         return allProducts;
     }
