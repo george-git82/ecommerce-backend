@@ -8,10 +8,34 @@ spring:
           uri: lb://PRODUCTS-LIST
           predicates:
             - Path=/api/products/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: PRODUCTS-LIST
+                fallbackuri: forward:/productListServiceFallback
         - id: PRODUCTS-INVENTORY
           uri: lb://PRODUCTS-INVENTORY
           predicates:
             - Path=/api/inventory/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: PRODUCTS-INVENTORY
+                fallbackuri: forward:/productInventoryServiceFallback
+
+hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
 
 server:
   port: 9000
