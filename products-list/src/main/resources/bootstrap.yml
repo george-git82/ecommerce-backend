@@ -2,4 +2,5 @@ spring:
   cloud:
     config:
       enabled: true
-      uri: http://localhost:9002
+      # uri: http://localhost:9002
+      uri: http://cloud-config-server:9002
