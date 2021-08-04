@@ -1,0 +1,66 @@
+version: '3'
+services:
+  cloud-config-server:
+    container_name: cloud-config-server
+    image: ecommerce-backend/cloud-config-server
+    ports:
+      - 9002:9002
+    networks:
+      - ecommerce
+
+  service-registry:
+    container_name: service-registry 
+    image: ecommerce-backend/service-registry
+    ports:
+      - 8761:8761
+    networks:
+      - ecommerce
+
+  products-list:
+    container_name: products-list
+    image: ecommerce-backend/products-list
+    ports:
+      - 8081:8081
+    depends_on:
+      - service-registry
+      - cloud-config-server
+    networks:
+      - ecommerce
+
+  # product-inventory:
+  #   container_name: product-inventory
+  #   image: ecommerce-backend/product-inventory
+  #   ports:
+  #     - 8082:8082
+  #   depends_on:
+  #     - service-registry
+  #     - cloud-config-server
+  #   networks:
+  #     - ecommerce
+
+  # api-gateway:
+  #   container_name: api-gateway
+  #   image: ecommerce-backend/api-gateway
+  #   ports:
+  #     - 9000:9000
+  #   depends_on:
+  #     - service-registry
+  #     - cloud-config-server
+  #   networks:
+  #     - ecommerce
+
+  # hystrix-dashboard:
+  #   container_name: hystrix-dashboard
+  #   image: ecommerce-backend/hystrix-dashboard
+  #   ports:
+  #     - 9001:9001
+  #   depends_on:
+  #     - service-registry
+  #     - cloud-config-server
+  #   networks:
+  #     - ecommerce
+
+
+networks:
+  ecommerce:
+    driver: bridge
