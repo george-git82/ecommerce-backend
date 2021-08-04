@@ -13,3 +13,10 @@ server:
   # no trace in rest error response
   error:
     include-stacktrace: never
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    service-url:
+      defaultZone: http://service-registry:8761/eureka
